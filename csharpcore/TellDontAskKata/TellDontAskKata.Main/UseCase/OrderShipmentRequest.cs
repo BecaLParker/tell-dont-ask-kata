@@ -1,7 +1,6 @@
-﻿namespace TellDontAskKata.Main.UseCase
+﻿namespace TellDontAskKata.Main.UseCase;
+
+public class OrderShipmentRequest
 {
-    public class OrderShipmentRequest
-    {
-        public int OrderId { get; set; }
-    }
+    public int OrderId { get; set; }
 }

@@ -1,9 +1,8 @@
 ﻿using TellDontAskKata.Main.Domain;
 
-namespace TellDontAskKata.Main.Service
+namespace TellDontAskKata.Main.Service;
+
+public interface IShipmentService
 {
-    public interface IShipmentService
-    {
-        void Ship(Order order);
-    }
+    void Ship(Order order);
 }

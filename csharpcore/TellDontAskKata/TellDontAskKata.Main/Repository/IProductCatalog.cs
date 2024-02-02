@@ -1,9 +1,8 @@
 ﻿using TellDontAskKata.Main.Domain;
 
-namespace TellDontAskKata.Main.Repository
+namespace TellDontAskKata.Main.Repository;
+
+public interface IProductCatalog
 {
-    public interface IProductCatalog
-    {
-        Product GetByName(string name);
-    }
+    Product GetByName(string name);
 }

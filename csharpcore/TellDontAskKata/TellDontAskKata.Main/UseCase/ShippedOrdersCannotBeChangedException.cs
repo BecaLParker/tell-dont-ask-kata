@@ -1,8 +1,7 @@
 ﻿using System;
 
-namespace TellDontAskKata.Main.UseCase
+namespace TellDontAskKata.Main.UseCase;
+
+public class ShippedOrdersCannotBeChangedException : ApplicationException
 {
-    public class ShippedOrdersCannotBeChangedException : ApplicationException
-    {
-    }
 }
