@@ -9,12 +9,10 @@ namespace TellDontAskKata.Tests.UseCase;
 public class OrderApprovalUseCaseTest
 {
     private readonly TestOrderRepository _orderRepository;
-    private readonly OrderApprovalUseCase _useCase;
 
     public OrderApprovalUseCaseTest()
     {
         _orderRepository = new TestOrderRepository();
-        _useCase = new OrderApprovalUseCase(_orderRepository);
     }
 
 
@@ -33,8 +31,8 @@ public class OrderApprovalUseCaseTest
             OrderId = 1,
             Approved = true
         };
-
-        _useCase.Run(request);
+        
+        initialOrder.RequestApproval(request, _orderRepository);
 
         var savedOrder = _orderRepository.GetSavedOrder();
         Assert.Equal(OrderStatus.Approved, savedOrder.Status);
@@ -56,7 +54,7 @@ public class OrderApprovalUseCaseTest
             Approved = false
         };
 
-        _useCase.Run(request);
+        initialOrder.RequestApproval(request, _orderRepository);
 
         var savedOrder = _orderRepository.GetSavedOrder();
         Assert.Equal(OrderStatus.Rejected, savedOrder.Status);
@@ -80,7 +78,7 @@ public class OrderApprovalUseCaseTest
         };
 
 
-        Action actionToTest = () => _useCase.Run(request);
+        Action actionToTest = () => initialOrder.RequestApproval(request, _orderRepository);
       
         Assert.Throws<RejectedOrderCannotBeApprovedException>(actionToTest);
         Assert.Null(_orderRepository.GetSavedOrder());
@@ -103,7 +101,7 @@ public class OrderApprovalUseCaseTest
         };
 
 
-        Action actionToTest = () => _useCase.Run(request);
+        Action actionToTest = () => initialOrder.RequestApproval(request, _orderRepository);
             
         Assert.Throws<ApprovedOrderCannotBeRejectedException>(actionToTest);
         Assert.Null(_orderRepository.GetSavedOrder());
@@ -126,7 +124,7 @@ public class OrderApprovalUseCaseTest
         };
 
 
-        Action actionToTest = () => _useCase.Run(request);
+        Action actionToTest = () => initialOrder.RequestApproval(request, _orderRepository);
 
         Assert.Throws<ShippedOrdersCannotBeChangedException>(actionToTest);
         Assert.Null(_orderRepository.GetSavedOrder());
