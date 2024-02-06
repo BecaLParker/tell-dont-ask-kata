@@ -1,16 +1,15 @@
-﻿using System;
-using TellDontAskKata.Main.Domain;
+﻿using TellDontAskKata.Main.Domain;
 using TellDontAskKata.Main.UseCase;
 using TellDontAskKata.Tests.Doubles;
 using Xunit;
 
 namespace TellDontAskKata.Tests.UseCase;
 
-public class OrderApprovalUseCaseTest
+public class OrderApprovalTests
 {
     private readonly TestOrderRepository _orderRepository;
 
-    public OrderApprovalUseCaseTest()
+    public OrderApprovalTests()
     {
         _orderRepository = new TestOrderRepository();
     }
