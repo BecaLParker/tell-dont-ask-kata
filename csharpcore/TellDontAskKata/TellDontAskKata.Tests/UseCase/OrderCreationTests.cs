@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TellDontAskKata.Main.Domain;
 using TellDontAskKata.Main.Repository;
 using TellDontAskKata.Main.UseCase;
@@ -8,13 +7,12 @@ using Xunit;
 
 namespace TellDontAskKata.Tests.UseCase;
 
-public class OrderCreationUseCaseTest
+public class OrderCreationTests
 {
     private readonly TestOrderRepository _orderRepository;
     private readonly IProductCatalog _productCatalog;
-    private readonly OrderCreationUseCase _useCase;
 
-    public OrderCreationUseCaseTest()
+    public OrderCreationTests()
     {
         var food = new Category { 
             Name = "food",
@@ -38,8 +36,6 @@ public class OrderCreationUseCaseTest
         });
 
         _orderRepository = new TestOrderRepository();
-
-        _useCase = new OrderCreationUseCase(_orderRepository, _productCatalog);
     }
 
 
@@ -63,7 +59,8 @@ public class OrderCreationUseCaseTest
             Requests = new List<SellItemRequest> { saladRequest, tomatoRequest }
         };
 
-        _useCase.Run(request);
+        
+        Order.Create(request, _productCatalog, _orderRepository);
 
         Order insertedOrder = _orderRepository.GetSavedOrder();
         Assert.Equal(OrderStatus.Created, insertedOrder.Status);
@@ -93,9 +90,9 @@ public class OrderCreationUseCaseTest
             }
         };
 
-        Action actionToTest = () => _useCase.Run(request);
+       Order.Create(request, _productCatalog, _orderRepository);
 
-        Assert.Throws<UnknownProductException>(actionToTest);
+       Assert.Empty(_orderRepository._orders);
     }
 
 

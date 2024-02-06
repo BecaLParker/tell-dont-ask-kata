@@ -8,7 +8,7 @@ namespace TellDontAskKata.Tests.Doubles;
 public class TestOrderRepository : IOrderRepository
 {
     private Order _insertedOrder;
-    private IList<Order> _orders = new List<Order>();
+    internal IList<Order> _orders = new List<Order>();
 
     public void Save(Order order)
     {
