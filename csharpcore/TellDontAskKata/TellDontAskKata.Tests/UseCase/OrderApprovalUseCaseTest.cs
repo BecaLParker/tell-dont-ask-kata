@@ -78,9 +78,9 @@ public class OrderApprovalUseCaseTest
         };
 
 
-        Action actionToTest = () => initialOrder.RequestApproval(request, _orderRepository);
+        initialOrder.RequestApproval(request, _orderRepository);
       
-        Assert.Throws<RejectedOrderCannotBeApprovedException>(actionToTest);
+        Assert.Equal(OrderStatus.Rejected, initialOrder.Status);
         Assert.Null(_orderRepository.GetSavedOrder());
     }
 
@@ -101,9 +101,9 @@ public class OrderApprovalUseCaseTest
         };
 
 
-        Action actionToTest = () => initialOrder.RequestApproval(request, _orderRepository);
+        initialOrder.RequestApproval(request, _orderRepository);
             
-        Assert.Throws<ApprovedOrderCannotBeRejectedException>(actionToTest);
+        Assert.Equal(OrderStatus.Approved, initialOrder.Status);
         Assert.Null(_orderRepository.GetSavedOrder());
     }
 
@@ -124,9 +124,9 @@ public class OrderApprovalUseCaseTest
         };
 
 
-        Action actionToTest = () => initialOrder.RequestApproval(request, _orderRepository);
+        initialOrder.RequestApproval(request, _orderRepository);
 
-        Assert.Throws<ShippedOrdersCannotBeChangedException>(actionToTest);
+        Assert.Equal(OrderStatus.Shipped, initialOrder.Status);
         Assert.Null(_orderRepository.GetSavedOrder());
     }
 

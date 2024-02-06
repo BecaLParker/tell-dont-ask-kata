@@ -17,21 +17,19 @@ public class Order
     {
         if (Status == OrderStatus.Shipped)
         {
-            throw new ShippedOrdersCannotBeChangedException();
+            return;
         }
 
-        if (request.Approved && Status == OrderStatus.Rejected)
+        switch (request.Approved)
         {
-            throw new RejectedOrderCannotBeApprovedException();
-        }
-
-        if (!request.Approved && Status == OrderStatus.Approved)
-        {
-            throw new ApprovedOrderCannotBeRejectedException();
-        }
-
-        Status = request.Approved ? OrderStatus.Approved : OrderStatus.Rejected;
+            case true when Status == OrderStatus.Rejected:
+            case false when Status == OrderStatus.Approved:
+                return;
+            default:
+                Status = request.Approved ? OrderStatus.Approved : OrderStatus.Rejected;
         
-        repository.Save(this);
+                repository.Save(this);
+                break;
+        }
     }
 }
